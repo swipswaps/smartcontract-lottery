@@ -14,4 +14,4 @@ typechain
 # don't push the environment vars!
 .env
 
-notes.txt
+notes.txtg

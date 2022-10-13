@@ -1,0 +1,5 @@
+Event video explanation at 13:54:51
+
+yarn add --dev @chainlink/contracts
+
+hardhat (hh) and autocomplete -> yarn global add hardhat-shorthand
