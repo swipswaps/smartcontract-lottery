@@ -23,10 +23,10 @@ error Raffle__UpKeepNotNeeded(uint256 currentBalance, uint256 numPlayers, uint25
  * @notice This contract is for creating an untamperable decentralized smart contract
  * @dev This implements Chainlink VRF v2 and Chainlink Keepers
  */
-abstract contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
+contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     /*Type declarations */
     enum RaffleState {
-        OPEN,
+        OPEN, //tested
         CALCULATING
     } // creating an enum like this is secretly equivalent to
     // uint256 0 = OPEN, 1 = CALCULATING
@@ -65,14 +65,14 @@ abstract contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         uint32 callbackGasLimit,
         uint256 interval
     ) VRFConsumerBaseV2(vrfCoordinatorV2) {
-        i_entranceFee = entranceFee;
+        i_entranceFee = entranceFee; // tested
         i_vrfCoordinator = VRFCoordinatorV2Interface(vrfCoordinatorV2);
-        i_gasLane = gasLane;
+        i_gasLane = gasLane; //tested
         i_subscriptionId = subscriptionId;
-        i_callbackGasLimit = callbackGasLimit;
-        s_raffleState = RaffleState.OPEN;
+        i_callbackGasLimit = callbackGasLimit; // tested
+        s_raffleState = RaffleState.OPEN; //tested
         s_lastTimeStamp = block.timestamp;
-        i_interval = interval;
+        i_interval = interval; //tested
     }
 
     function enterRaffle() public payable {
@@ -108,7 +108,7 @@ abstract contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         view
         override
         returns (
-            // even though checkUpKeep is identify as external, it was change to public so I can call it
+            // even though checkUpKeep is identified as external, it was change to public so I can call it
             // my contract call this function
             bool upkeepNeeded,
             bytes memory /*performData */
@@ -129,7 +129,7 @@ abstract contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         // Once we get it, do something with it
         // Chainlink VR is a 2 transaction process: this is intentional. Having 2 random numbers inside
         // a transaction is much better than having it in one. If it in one transaction people could
-        // brute force trying to simulate calling this transaction. Byt trying to simulate the transaction
+        // brute force trying to simulate calling this transaction. By trying to simulate the transaction
         // they could try to be the winner.
         // Since I'm passing an empty string to checkUpKeep("") and  this function requires a calldata and
         // calldata doesn't work with strings so I need to bytes memory in the parameter of checkUpKeep
@@ -215,5 +215,13 @@ abstract contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
 
     function getInterval() public view returns (uint256) {
         return i_interval;
+    }
+
+    function getGasLane() public view returns (bytes32) {
+        return i_gasLane;
+    }
+
+    function getCallbackGasLimit() public view returns (uint32) {
+        return i_callbackGasLimit;
     }
 }

@@ -30,6 +30,12 @@ module.exports = {
             accounts: [PRIVATE_KEY],
         },
     },
+    gasReporter: {
+        enabled: false,
+        currency: "USD",
+        outputFile: "gas-report.txt",
+        noColors: true,
+    },
     namedAccounts: {
         deployer: {
             default: 0,
@@ -37,5 +43,8 @@ module.exports = {
         player: {
             default: 1,
         },
+    },
+    mocha: {
+        timeout: 500000,
     },
 }
