@@ -43,7 +43,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
         waitConfirmations: network.config.blockConfirmations || 1,
     })
 
-    // We need to add our smart contract to the list of consumers of the chainlink vrfCoordinator
+    // We need to add our smart contract to the list of consumers of the Chainlink vrfCoordinator
     // after deployment for the following reasons:
     //  - Creation of the vrfCoordinator is only required for local testing, on testnet this is
     //  provided by Chainlink.
@@ -52,7 +52,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     if (developmentChains.includes(network.name)) {
         const vrfCoordinatorV2Mock = await ethers.getContract("VRFCoordinatorV2Mock")
         await vrfCoordinatorV2Mock.addConsumer(subscriptionId, raffle.address)
-        log("Consumer is added")
+        log("Raffle.sol added as a consumer")
         log("--------------------------------------------------------------------")
     }
 
