@@ -14,7 +14,7 @@ developmentChains.includes(network.name)
           })
 
           describe("fulfillRandomWords", () => {
-              it("works with Chainlink Keepers and Chainlink VRG, we get a random winner", async () => {
+              it("works with Chainlink Keepers and Chainlink VRF, we get a random winner", async () => {
                   console.log("Setting up test...")
                   const startingTimeStamp = await raffle.getLatestTimeStamp()
                   const accounts = await ethers.getSigners()
