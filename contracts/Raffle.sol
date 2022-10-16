@@ -1,11 +1,3 @@
-// Raffle
-
-//Enter the lottery (paying some amount)
-//Pick a random winner(verifiably random)
-//Winner to be selected every X minutes or hours -> completly automated
-
-//Chainlink Oracle -> Randomness, Automated Execution (Chainlink Keeper)
-
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
@@ -18,11 +10,18 @@ error Raffle__TransferFailed();
 error Raffle__NotOpen();
 error Raffle__UpKeepNotNeeded(uint256 currentBalance, uint256 numPlayers, uint256 raffleState);
 
-/**@title A sample Raffle Contract
+/**
+ * @title A sample of a Raffle Contract
  * @author Eugenio Flores
- * @notice This contract is for creating an untamperable decentralized smart contract
- * @dev This implements Chainlink VRF v2 and Chainlink Keepers
+ * @notice This contract is for creating an untamperable decentralized smart contract lottery
+ * @dev This contract implements Chainlink VRF v2 and Chainlink Keepers
  */
+
+/**
+ * THIS IS AN EXAMPLE CONTRACT THAT USES UN-AUDITED CODE.
+ * DO NOT USE THIS CODE IN PRODUCTION.
+ */
+
 contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     /*Type declarations */
     enum RaffleState {
@@ -34,7 +33,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     /*State Variables */
     // since the entrance Fee will be established one time, this variable can be immutable to save gas.
     uint256 private immutable i_entranceFee;
-    //s_player we want them in storage because we are going to be modifying this array many times
+    // s_player is going to be in storage because the size of this array is variable.
     address payable[] private s_players;
     VRFCoordinatorV2Interface private immutable i_vrfCoordinator;
     bytes32 private immutable i_gasLane;
@@ -54,25 +53,25 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     event RequestedRaffleWinner(uint256 indexed requestId);
     event winnerPicked(address indexed winner);
 
-    // vrfCoordinatorV2 is  the adreess of the vrfCoordinator that makes the random number verification
+    // vrfCoordinatorV2 is the adreess of the vrfCoordinator that makes the random number verification.
 
     /*Functions */
     constructor(
-        address vrfCoordinatorV2, // contract address
+        address vrfCoordinatorV2,
         uint256 entranceFee,
         bytes32 gasLane, //keyHash
         uint64 subscriptionId,
         uint32 callbackGasLimit,
         uint256 interval
     ) VRFConsumerBaseV2(vrfCoordinatorV2) {
-        i_entranceFee = entranceFee; // tested
+        i_entranceFee = entranceFee;
         i_vrfCoordinator = VRFCoordinatorV2Interface(vrfCoordinatorV2);
-        i_gasLane = gasLane; //tested
+        i_gasLane = gasLane;
         i_subscriptionId = subscriptionId;
-        i_callbackGasLimit = callbackGasLimit; // tested
-        s_raffleState = RaffleState.OPEN; //tested
+        i_callbackGasLimit = callbackGasLimit;
+        s_raffleState = RaffleState.OPEN;
         s_lastTimeStamp = block.timestamp;
-        i_interval = interval; //tested
+        i_interval = interval;
     }
 
     function enterRaffle() public payable {
@@ -83,15 +82,15 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
             revert Raffle__NotOpen();
         }
         s_players.push(payable(msg.sender));
-        //Emit an event when we update a dynamic array or mapping
-        //Named events with the function name reversed
+        // Emit an event when we update a dynamic array or mapping
+        // Name events with the function name reversed
         emit RaffleEnter(msg.sender);
     }
 
     /**
-     * @dev This is the function that the Chainlink Keepers nodes call
-     * they look for the `upKeepNeeded` to return true
-     * The following need should be true in order to return ture:
+     * @dev checkUpkeep is the function that the Chainlink Keepers nodes will call to know if performUpKeep()
+     * should be call by them. They look for the `upKeepNeeded` to return true.
+     * The following need should be true in order for `upKeepNeeded` to return true:
      * 1. Our time interval should have passed
      * 2. The lottery should have al least 1 player and have some ETH
      * 3. Our subscription is funded with LINK
@@ -99,17 +98,16 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
      */
 
     function checkUpkeep(
-        // checkData allows to specify anythin when the checkUpKeep is callled. Having checkData of type
-        // bytes allows to specify it call other functions
-        // checkData can be commented out but I still need to specify what of parameter it is
+        // checkData allows to specify anything when the checkUpKeep is called. Having checkData of type
+        // bytes allows to specify it to call other functions.
+        // checkData can be commented out but I still need to specify the parameter it is.
         bytes memory /*checkData*/
     )
         public
         view
         override
         returns (
-            // even though checkUpKeep is identified as external, it was change to public so I can call it
-            // my contract call this function
+            // even though checkUpKeep is identified as external, it was change to public so I can call it with my contract
             bool upkeepNeeded,
             bytes memory /*performData */
         )
@@ -119,20 +117,21 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         bool hasPlayers = (s_players.length > 0);
         bool hasBalance = address(this).balance > 0;
         upkeepNeeded = (isOpen && timePassed && hasPlayers && hasBalance);
+        return (upkeepNeeded, "0x0");
     }
+
+    /**
+     * @dev performUpkeep() is the function the Chainlink nodes will call to kick off an Chainlink VRF request.
+     * This function can only be call if upkeepNeeded is true and this function will emit an event requesting for randomness.
+     * requestId is the randomness order to be fulfilled by the Chainlink VFR service.
+     */
 
     // equivalent to requestRandomWords() and was renamed to performUpKeep()
     function performUpkeep(
         bytes calldata /*performData */
     ) external override {
-        // Request the random number
-        // Once we get it, do something with it
-        // Chainlink VR is a 2 transaction process: this is intentional. Having 2 random numbers inside
-        // a transaction is much better than having it in one. If it in one transaction people could
-        // brute force trying to simulate calling this transaction. By trying to simulate the transaction
-        // they could try to be the winner.
-        // Since I'm passing an empty string to checkUpKeep("") and  this function requires a calldata and
-        // calldata doesn't work with strings so I need to bytes memory in the parameter of checkUpKeep
+        // Since I'm passing an empty string to checkUpKeep("") and this function requires a calldata and calldata doesn't work with strings,
+        // I need to specify performData as memory in checkUpkeep.
         (bool upkeepNeeded, ) = checkUpkeep("");
         if (!upkeepNeeded) {
             revert Raffle__UpKeepNotNeeded(
@@ -143,7 +142,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         }
         s_raffleState = RaffleState.CALCULATING;
         uint256 requestId = i_vrfCoordinator.requestRandomWords(
-            i_gasLane, //gasLane
+            i_gasLane, //keyHash
             i_subscriptionId,
             REQUEST_CONFIRMATIONS,
             i_callbackGasLimit,
@@ -152,19 +151,19 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         emit RequestedRaffleWinner(requestId);
     }
 
+    /**
+     * @dev After the Chainlink nodes fulfilled the randomness order by generating the random words in an off-chain calculation,
+     * they will call fulfillRandomWords() in this contract and pass to it the requestId and the randomWords array as parameters.
+     * An event will be triggered after the on-chain calculation of selecting a winner and sending the prize (balance) to the winner
+     * of the lottery.
+     */
+
     /* think of this function as fullfiled random numbers*/
     function fulfillRandomWords(
         uint256, /* requestId not use in this contract*/
         uint256[] memory randomWords
     ) internal override {
-        //Once we got the random number we want to pick a random winner from the array of players
-        // using the Modulo function
-        // our s_player array is of size 10
-        // randomNumber is 202
-        // 202 % 10 ? what doesn't divide evenly into 202?
-        // 20 * 10 = 200
-        // 2
-        // 202 % 10 = 2
+        //Once we got the random number we want to pick a random winner from the array of players using the Modulo function
         uint256 indexOfWinner = randomWords[0] % s_players.length;
         address payable recentWinner = s_players[indexOfWinner];
         s_recentWinner = recentWinner;
@@ -178,8 +177,8 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         emit winnerPicked(recentWinner);
     }
 
-    /*View, pure function */
-    function entranceFee() public view returns (uint256) {
+    /*View and pure functions */
+    function getEntranceFee() public view returns (uint256) {
         return i_entranceFee;
     }
 
@@ -195,8 +194,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         return s_raffleState;
     }
 
-    // since NUM_WORDS is in the byte codes and it nos strictly reading from storage and therefore
-    // it can be a pure function
+    // since NUM_WORDS is in the byte codes and is not strictly reading from storage, therefore, it can be a pure function
     function getNumWords() public pure returns (uint256) {
         return NUM_WORDS;
     }

@@ -6,10 +6,11 @@ require("hardhat-gas-reporter")
 require("hardhat-contract-sizer")
 require("dotenv").config()
 
-const RPC_URL_GOERLI =
-    process.env.RPC_URL_GOERLI || "https://eth-goerli.alchemyapi.io/v2/your-api-key"
+const RPC_URL_GOERLI = process.env.RPC_URL_GOERLI || "https://goerli.net/"
+const RPC_URL_POLYGON = process.env.RPC_URL_POLYGON || "https://polygonscan.com/"
 PRIVATE_KEY = process.env.PRIVATE_KEY || "0x"
 ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "Your etherscan API key"
+COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY || "Your CoinmarketCap API Key"
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -33,6 +34,7 @@ module.exports = {
     etherscan: {
         apiKey: {
             goerli: ETHERSCAN_API_KEY,
+            //polygon: POLYGONSCAN_API_KEY,
         },
         customChains: [
             {
@@ -50,6 +52,8 @@ module.exports = {
         currency: "USD",
         outputFile: "gas-report.txt",
         noColors: true,
+        // coinmarketcap: COINMARKETCAP_API_KEY,
+        // token: "MATIC",
     },
     namedAccounts: {
         deployer: {

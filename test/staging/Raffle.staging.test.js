@@ -10,7 +10,7 @@ developmentChains.includes(network.name)
           beforeEach(async () => {
               deployer = (await getNamedAccounts()).deployer
               raffle = await ethers.getContract("Raffle", deployer)
-              entranceFee = await raffle.entranceFee()
+              entranceFee = await raffle.getEntranceFee()
           })
 
           describe("fulfillRandomWords", () => {
