@@ -153,6 +153,10 @@ or, to fix:
 yarn lint:fix
 ```
 
+# Acknowledgements
+
+I want to thanks [PatrickAlphaC](https://github.com/PatrickAlphaC) for teaching me the necessary tools to complete this project in my journey to become a full stack developer.
+
 # Thank you 🎉 🎉
 
 I hope you like this project and it ends up being useful to you 👨‍💻
