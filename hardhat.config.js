@@ -7,7 +7,6 @@ require("hardhat-contract-sizer")
 require("dotenv").config()
 
 const RPC_URL_GOERLI = process.env.RPC_URL_GOERLI || "https://goerli.net/"
-const RPC_URL_POLYGON = process.env.RPC_URL_POLYGON || "https://polygonscan.com/"
 PRIVATE_KEY = process.env.PRIVATE_KEY || "0x"
 ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "Your etherscan API key"
 COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY || "Your CoinmarketCap API Key"
@@ -31,6 +30,8 @@ module.exports = {
             accounts: [PRIVATE_KEY],
         },
     },
+
+    //this might be redundant but it helped me verify my contract in goerli
     etherscan: {
         apiKey: {
             goerli: ETHERSCAN_API_KEY,

@@ -220,55 +220,6 @@ const { developmentChains, networkConfig } = require("../../helper-hardhat-confi
               })
           })
 
-          //----------------------------------------------------------------------------------------//
-
-          //   describe("fulfillRandomWords", () => {
-          //       beforeEach(async () => {
-          //           await raffle.enterRaffle({ value: entranceFee })
-          //           await network.provider.send("evm_increaseTime", [interval.toNumber() + 1])
-          //           await network.provider.send("evm_mine", [])
-          //       })
-          //       it("picks a winner but doesn't sends the money", async () => {
-          //           const additionalEntrances = 3
-          //           const startingIndex = 2 // deployer = 0
-          //           const accounts = await ethers.getSigners()
-          //           for (let i = startingIndex; i < startingIndex + additionalEntrances; i++) {
-          //               const accountConnectedRaffle = raffle.connect(accounts[i])
-          //               await accountConnectedRaffle.enterRaffle({ value: entranceFee })
-          //           }
-          //           const startingTimeStamp = await raffle.getLatestTimeStamp()
-          //           await new Promise(async (resolve, reject) => {
-          //               raffle.once("winnerPicked", async () => {
-          //                   // setting up the listener
-          //                   console.log("winnerPicked event fired!")
-          //                   try {
-          //                       const recentWinner = await raffle.getRecentWinner()
-          //                       console.log(`The winner is ${recentWinner}`)
-          //                       const success = false
-          //                       //const winnerEndingBalance = await accounts[2].getBalance()
-          //                       await expect(raffle.fulfillRandomWords("", [])).to.be.revertedWith(
-          //                           "Raffle__TransferFailed"
-          //                       )
-          //                       resolve()
-          //                   } catch (e) {
-          //                       reject(e)
-          //                   }
-          //               })
-          //               const tx = await raffle.performUpkeep([])
-          //               const txReceipt = await tx.wait(1)
-          //               //const winnerStartingBalance = await accounts[2].getBalance()
-          //               // check inside VRFCoordinatorV2Mock to find fulfillRandomWords(params)
-          //               await vrfCoordinatorV2Mock.fulfillRandomWords(
-          //                   txReceipt.events[1].args.requestId,
-          //                   raffle.address
-          //               )
-
-          //               // this code won't complete until the listener finishes listening
-          //           })
-          //       })
-          //   })
-          //----------------------------------------------------------------------------------------//
-
           describe("getNumWords", () => {
               it("asserts NUM_WORDS are initialized correctly", async () => {
                   assert.equal(NUM_WORDS, 1)
