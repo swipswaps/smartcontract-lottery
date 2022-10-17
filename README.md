@@ -97,9 +97,8 @@ Go to [keepers.chain.link](https://automation.chain.link/) and register a new up
 
 <div align = "center">
     <img src="/images/CapturaKeepers.JPG">
+    <p>Screenshot. The optional fields can be left blank.</p>
 </div>
-
-The optional fields can be left blank.
 
 6. Enter your Raffle
 
