@@ -51,7 +51,7 @@ yarn hardhat test
 yarn hardhat coverage
 ```
 
-# Deployment to a testnet or mainnet
+# Deployment to a testnet
 
 1. Set up environment variables:
 
@@ -75,7 +75,7 @@ You can [read more](Chainlink VRF Subscription ID) in case that you need more in
 2.  Your subscription should be funded with LINK
 3.  Deploy your contract with you subscription ID imported
 
-In your `helper-hardhat-config.js` add your `subscriptionId` under the section of the chainId you're using (aka, if you're deploying to goerli, add your `subscriptionId` in the `subscriptionId` field under the `5` section.)
+In your `helper-hardhat-config.js` add your `subscriptionId` under the section of the chainId you're using. If you're deploying to goerli, add your `subscriptionId` in the `subscriptionId` field under the `5` section.
 
 Run:
 
@@ -87,11 +87,11 @@ Advice: store your contract address for a quick access in case it's needed.
 
 4. Add your contract address as a Chainlink VRF Consumer
 
-Go back to [vrf.chain.link](https://vrf.chain.link/) and under your subscription add Add consumer and add your contract address. You should also fund the contract with a minimum of 1 LINK.
+Go back to [vrf.chain.link](https://vrf.chain.link/), under your subscription click on Add consumer and insert your contract address. You should also fund the contract with a minimum of 1 LINK.
 
 5. Register a Chainlink Keepers Upkeep
 
-[Read more for more information](https://docs.chain.link/docs/chainlink-automation/compatible-contracts/)
+[Read more to find extra information](https://docs.chain.link/docs/chainlink-automation/compatible-contracts/)
 
 Go to [keepers.chain.link](https://automation.chain.link/) and register a new upkeep. Choose `Custom logic` as your trigger mechanism for automation and insert your `contract address`. Your UI will look something like this once completed:
 
@@ -103,7 +103,7 @@ The optional fields can be left blank.
 
 6. Enter your Raffle
 
-You're contract is now setup to be a tamper proof autonomous verifiably random lottery. Create a new terminal and run:
+Your contract is now setup to be a tamper proof autonomous verifiably random lottery. Create a new terminal and run:
 
 ```
 yarn hardhat node
@@ -115,7 +115,7 @@ Enter the lottery by running:
 yarn hardhat run scripts/enter.js --network localhost
 ```
 
-To test it in a testnet replace `localhost` for `goerli`.
+To test your contract in a testnet replace `localhost` for `goerli` in the previous command and run it.
 
 # Estimate gas cost in USD
 
@@ -133,7 +133,7 @@ However, you can manual verify with:
 yarn hardhat verify --constructor-args arguments.js DEPLOYED_CONTRACT_ADDRESS
 ```
 
-In it's current state, if you have your api key set, it will auto verify goerli contracts!
+In it's current state, if you have your api key set, it will auto verify goerli contracts.
 
 # Typescript
 
