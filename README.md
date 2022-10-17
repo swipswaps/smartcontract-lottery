@@ -95,7 +95,7 @@ Go back to [vrf.chain.link](https://vrf.chain.link/), under your subscription cl
 
 Go to [keepers.chain.link](https://automation.chain.link/) and register a new upkeep. Choose `Custom logic` as your trigger mechanism for automation and insert your `contract address`. Your UI will look something like this once completed:
 
-<div>
+<div style="text-align: center">
     <img src="/images/CapturaKeepers.JPG">
 </div>
 
