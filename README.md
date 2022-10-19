@@ -122,7 +122,7 @@ To get a USD estimation of gas cost, you'll need a `COINMARKETCAP_API_KEY` envir
 
 Then, uncomment the line coinmarketcap: `COINMARKETCAP_API_KEY`, in `hardhat.config.js` to get the USD estimation. Just note, everytime you run your tests it will use an API call, so it might make sense to have using coinmarketcap disabled until you need it. You can disable it by just commenting the line back out.
 
-# Verify on etherscan
+# Verify on Etherscan
 
 If you deploy to a testnet or mainnet, you can verify it if you get an [API Key](https://etherscan.io/login?cmd=last) from Etherscan and set it as an environemnt variable named `ETHERSCAN_API_KEY`. You can pop it into your `.env` file as seen in the `.env.example`.
 
