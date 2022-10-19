@@ -1,5 +1,9 @@
 # Hardhat Smart Contract Lottery (Raffle)
 
+<div align = "center">
+    <img src="/images/card.png">
+</div>
+
 # Overview
 
 This contract allows players to enter the Raffle, after a period of time a random winner will be selected and the prize will be sent to the address of the winner.
