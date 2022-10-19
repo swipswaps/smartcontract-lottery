@@ -129,7 +129,7 @@ If you deploy to a testnet or mainnet, you can verify it if you get an [API Key]
 However, you can manual verify with:
 
 ```
-yarn hardhat verify --constructor-args arguments.js DEPLOYED_CONTRACT_ADDRESS
+yarn hardhat verify <DEPLOYED_CONTRACT_ADDRESS> --constructor-args
 ```
 
 In it's current state, if you have your api key set, it will auto verify goerli contracts.
