@@ -166,10 +166,10 @@ const { developmentChains, networkConfig } = require("../../helper-hardhat-confi
                   // 3. After both these things have happened we can record if:
                   //    - Recent winner get recorded?
                   //    - RaffleState, s_players and s_lastTimeStamp were reset
-                  // 4. to verify the above in a tesnet we will have to wait for fulfillRandoWords
+                  // 4. To verify the above in a tesnet we will have to wait for fulfillRandoWords
                   // to be called, but in a local enviroment there's no need for that because
                   // we can adjust our blockchain to do whatever we want. BUT for this test we will
-                  // simulate that we have to wait for that event to called as If we were in a tesnet.
+                  // simulate that we have to wait for that event to be called as If we were in a tesnet.
                   // 5. To achieve that we will need to set up an event listener.
                   // 6. Basically we want the test to not finish until the listener has stopped listening
                   // so we need to create a new Promise.
