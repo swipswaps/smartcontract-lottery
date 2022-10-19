@@ -136,7 +136,7 @@ In it's current state, if you have your api key set, it will auto verify goerli 
 
 # Typescript
 
-There no typescript version of this repo, but PRs are welcome!
+There's no typescript version of this repo, but PRs are welcome!
 
 # Linting
 
