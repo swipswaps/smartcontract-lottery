@@ -69,7 +69,7 @@ Go to https://goerlifaucet.com/ or [faucets.chain.link](https://faucets.chain.li
 
 Head over to [vrf.chain.link](https://vrf.chain.link/) and create a new subscription to get a subscriptionId. You can reuse an old subscription if you already have one.
 
-You can [read more](Chainlink VRF Subscription ID) in case that you need more information on how to create the Chainlink VRF Subscription ID. After this step you should have:
+You can [read more](https://docs.chain.link/docs/vrf/v2/subscription/examples/get-a-random-number/) in case that you need more information on how to create the Chainlink VRF Subscription ID. After this step you should have:
 
 1.  Subscription ID
 2.  Your subscription should be funded with LINK
@@ -93,7 +93,7 @@ Go back to [vrf.chain.link](https://vrf.chain.link/), under your subscription cl
 
 [Read more to find extra information](https://docs.chain.link/docs/chainlink-automation/compatible-contracts/)
 
-Go to [keepers.chain.link](https://automation.chain.link/) and register a new upkeep. Choose `Custom logic` as your trigger mechanism for automation and insert your `contract address`. Your UI will look something like this once completed:
+Go to [automation.chain.link](https://automation.chain.link/) and register a new upkeep. Choose `Custom logic` as your trigger mechanism for automation and insert your `contract address`. Your UI will look something like this once completed:
 
 <div align = "center">
     <img src="/images/CapturaKeepers.JPG">
