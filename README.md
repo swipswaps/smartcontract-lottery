@@ -93,7 +93,7 @@ Go back to [vrf.chain.link](https://vrf.chain.link/), under your subscription cl
 
 [Read more to find extra information](https://docs.chain.link/docs/chainlink-automation/compatible-contracts/)
 
-Go to [automation.chain.link](https://automation.chain.link/) and register a new upkeep. Choose `Custom logic` as your trigger mechanism for automation and insert your `contract address`. Your UI will look something like this once completed:
+Go to [automation.chain.link](https://automation.chain.link/) and register a new upkeep. Choose `Custom logic` as the trigger mechanism for the upkeep and insert your `contract address`. Your UI will look something like this once completed:
 
 <div align = "center">
     <img src="/images/CapturaKeepers.JPG">
